@@ -3,15 +3,12 @@ pipeline {
 
     tools {
         nodejs "Node22"
-        // Mantenemos la declaración de tus herramientas
-        dockerTool 'Dockertool' 
     }
 
-    stages {
+ stages {
         stage('Instalar dependencias') {
             steps {
                 sh 'npm install'
-                sh 'chmod -R +x ./node_modules/.bin'
             }
         }
 
@@ -26,10 +23,7 @@ pipeline {
                 expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
             }
             steps {
-                // Forzamos a Jenkins a usar el ejecutable del plugin 'Dockertool'
-                withEnv(["PATH+DOCKER=${tool 'Dockertool'}/bin"]) {
-                    sh 'docker build -t hola-mundo-node:latest .'
-                }
+                sh 'docker build -t hola-mundo-node:latest .'
             }
         }
 
@@ -38,13 +32,11 @@ pipeline {
                 expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
             }
             steps {
-                withEnv(["PATH+DOCKER=${tool 'Dockertool'}/bin"]) {
-                    sh '''
-                        docker stop hola-mundo-node || true
-                        docker rm hola-mundo-node || true
-                        docker run -d --name hola-mundo-node -p 3000:3000 hola-mundo-node:latest
-                    '''
-                }
+                sh '''
+                    docker stop hola-mundo-node || true
+                    docker rm hola-mundo-node || true
+                    docker run -d --name hola-mundo-node -p 3000:3000 hola-mundo-node:latest
+                '''
             }
         }
     }
