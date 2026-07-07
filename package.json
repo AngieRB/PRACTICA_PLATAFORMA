@@ -4,17 +4,20 @@
     "description": "Mi aplicación Node.js",
     "main": "index.js",
     "scripts": {
-        "test": "npx jest"
+        "test": "node ./node_modules/jest/bin/jest.js"
     },
     "jest": {
         "testEnvironment": "node"
     },
     "dependencies": {
-        "express": "^4.22.2",
-        "jest": "^30.4.2",
-        "supertest": "^7.2.2"
+        "express": "^4.21.2",
+        "jest": "^30.0.4",
+        "supertest": "^7.1.3"
     },
     "keywords": [],
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "directories": {
+        "test": "tests"
+    }
 }
