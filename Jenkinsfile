@@ -10,6 +10,8 @@ pipeline {
         stage('Instalar dependencias') {
             steps {
                 sh 'npm install'
+
+                sh 'chmod -R +x ./node_modules/.bin'
             }
         }
 
